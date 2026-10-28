@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}Anomaly Detection{% endblock %}
+{% set active = "anomaly" %}
+{% block page_title %}Network Anomaly Detection (TinyML){% endblock %}
+
+{% block content %}
+<div id="server-warning" style="display:none; margin-bottom:16px;"></div>
+
+<div class="grid grid--kpi" style="margin-bottom:20px;">
+  <div class="panel panel__body">
+    <div class="kpi__label">Total Scored</div>
+    <div class="kpi__value" id="kpi-total">—</div>
+    <div class="kpi__sub" id="kpi-total-sub">—</div>
+  </div>
+  <div class="panel panel__body">
+    <div class="kpi__label">Anomaly Rate</div>
+    <div class="kpi__value crit" id="kpi-rate">—</div>
+    <div class="kpi__sub">of everything scored</div>
+  </div>
+  <div class="panel panel__body">
+    <div class="kpi__label">Anomaly Threshold</div>
+    <div class="kpi__value" id="kpi-threshold">—</div>
+    <div class="kpi__sub">reconstruction MSE cutoff</div>
+  </div>
+  <div class="panel panel__body">
+    <div class="kpi__label">Model Status</div>
+    <div class="kpi__value" id="kpi-model-status" style="font-size:15px;">—</div>
+    <div class="kpi__sub" id="kpi-model-sub">—</div>
+  </div>
+</div>
+
+<div class="grid grid--2" style="margin-bottom:20px;">
+  <div class="panel">
+    <div class="panel__head">
+      <span class="panel__title">Recent Events</span>
+      <select id="events-filter" style="width:auto; margin:0;">
+        <option value="all">All traffic</option>
+        <option value="live">Live only</option>
+        <option value="simulated">Simulated only</option>
+      </select>
+    </div>
+    <div class="panel__body" style="padding:0;">
+      <div style="max-height:460px; overflow-y:auto;">
+        <table>
+          <thead>
+            <tr><th>Time</th><th>Source</th><th>MSE</th><th>Decision</th><th>Top Contributor</th></tr>
+          </thead>
+          <tbody id="events-body"><tr><td colspan="5" class="empty-state">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel__head"><span class="panel__title">Simulate Traffic</span></div>
+    <div class="panel__body">
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <label class="kpi__label" style="margin:0;">Mode
+          <select id="sim-mode" style="width:100%; margin-top:4px;">
+            <option value="mixed">Mixed (70% normal / 30% anomaly)</option>
+            <option value="normal">Normal only</option>
+            <option value="anomaly">Anomaly only</option>
+          </select>
+        </label>
+        <label class="kpi__label" style="margin:0;">Count
+          <input type="text" id="sim-count" value="10" style="width:100%; margin-top:4px;">
+        </label>
+        <label class="kpi__label" style="margin:0;">Magnitude <span style="color:var(--text-faint);">(anomaly shift strength)</span>
+          <input type="text" id="sim-magnitude" value="4" style="width:100%; margin-top:4px;">
+        </label>
+        <button class="btn btn--primary" id="btn-simulate" style="margin-top:4px;">Run Simulation</button>
+        <div id="sim-result" style="font-size:12px; color:var(--text-dim);"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="panel">
+  <div class="panel__head"><span class="panel__title">Top Offending Features</span></div>
+  <div class="panel__body" style="padding:0;">
+    <table>
+      <thead><tr><th>Feature</th><th>Times Top Contributor</th></tr></thead>
+      <tbody id="offenders-body"><tr><td colspan="2" class="empty-state">Loading…</td></tr></tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/anomaly.js') }}"></script>
+{% endblock %}

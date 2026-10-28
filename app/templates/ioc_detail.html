@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}{{ value }}{% endblock %}
+{% set active = "requests" %}
+{% block page_title %}IOC Detail{% endblock %}
+
+{% block content %}
+<div class="panel panel__body" style="margin-bottom:18px; display:flex; justify-content:space-between; align-items:center;">
+  <div>
+    <div class="kpi__label">Investigating</div>
+    <div class="mono" style="font-size:20px; font-weight:600;" id="ioc-value">{{ value }}</div>
+  </div>
+  <div style="display:flex; gap:10px; align-items:center;">
+    <div style="text-align:right;">
+      <div class="kpi__label">Final Score</div>
+      <div class="kpi__value" id="ioc-score">—</div>
+    </div>
+    <div id="ioc-decision"></div>
+    <button class="btn" id="btn-block">Block</button>
+    <button class="btn btn--primary" id="btn-rescore">Rescore now</button>
+  </div>
+</div>
+
+<div id="block-status" style="display:none; margin-bottom:18px;"></div>
+
+<div class="grid grid--split" style="margin-bottom:18px;">
+  <div class="panel panel__body">
+    <div class="section-label" style="margin-top:0;">Scoring Components</div>
+    <div id="components-body">—</div>
+  </div>
+  <div class="panel panel__body">
+    <div class="section-label" style="margin-top:0;">MITRE ATT&CK Basis</div>
+    <div id="mitre-basis">—</div>
+  </div>
+</div>
+
+<div class="section-label">Threat Feeds &amp; ML Model — Side by Side</div>
+<div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-bottom:18px;" id="feed-cards">
+  <div class="empty-state">Loading…</div>
+</div>
+
+<div class="panel" id="ml-panel" style="display:none; margin-bottom:18px;">
+  <div class="panel__head"><span class="panel__title">URLPredictor Ensemble — Per-Model Scores</span></div>
+  <div class="panel__body" id="ml-body"></div>
+</div>
+
+<div class="panel">
+  <div class="panel__head"><span class="panel__title">Related Requests</span></div>
+  <div class="panel__body" style="padding:0;">
+    <table>
+      <thead><tr><th>Time</th><th>Dir</th><th>Src</th><th>Dst</th><th>Type</th></tr></thead>
+      <tbody id="related-body"><tr><td colspan="5" class="empty-state">—</td></tr></tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>const IOC_VALUE = {{ value|tojson }};</script>
+<script src="{{ url_for('static', filename='js/ioc.js') }}"></script>
+{% endblock %}

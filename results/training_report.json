@@ -1,0 +1,220 @@
+{
+  "training_mode": "fixed-hyperparameters, leakage-free (retrain_m1.py)",
+  "dataset": "Kaggle Malicious URLs dataset (raw_ioc_dataset.csv): benign/defacement/phishing/malware",
+  "label_rule": "benign=0; defacement, phishing, malware=1",
+  "removed_features": [
+    "category_weight",
+    "has_www",
+    "ip_int",
+    "risk_score",
+    "url_hash_mod"
+  ],
+  "input_representation": "bare host as produced by scorer._normalise (one row per unique host; hosts labelled both benign and malicious dropped)",
+  "split": "80/20 GroupShuffleSplit by host (no host in both train and test), seed 42",
+  "feature_columns": [
+    "url_length",
+    "domain_length",
+    "url_entropy",
+    "domain_entropy",
+    "is_ip",
+    "dot_count",
+    "hyphen_count",
+    "underscore_count",
+    "digit_ratio",
+    "letter_ratio",
+    "special_char_ratio",
+    "no_protocol",
+    "subdomain_count",
+    "consecutive_dots",
+    "has_ip_pattern",
+    "tld_length",
+    "suspicious_tld"
+  ],
+  "ensemble_weights": {
+    "decision_tree": 0.1429,
+    "random_forest": 0.1429,
+    "extra_trees": 0.1429,
+    "gradient_boosting": 0.1429,
+    "xgboost": 0.1429,
+    "catboost": 0.1429,
+    "lightgbm": 0.1429
+  },
+  "models": [
+    {
+      "model": "decision_tree",
+      "accuracy": 0.7279,
+      "precision": 0.6906,
+      "recall": 0.2859,
+      "f1": 0.4044,
+      "auc_roc": 0.7044,
+      "pr_auc": 0.5923,
+      "fpr": 0.0611,
+      "true_negatives": 24609,
+      "false_positives": 1602,
+      "false_negatives": 8933,
+      "true_positives": 3576,
+      "train_time_s": 0.4,
+      "eval_time_s": 0.004
+    },
+    {
+      "model": "random_forest",
+      "accuracy": 0.7329,
+      "precision": 0.7512,
+      "recall": 0.2589,
+      "f1": 0.3851,
+      "auc_roc": 0.715,
+      "pr_auc": 0.6098,
+      "fpr": 0.0409,
+      "true_negatives": 25138,
+      "false_positives": 1073,
+      "false_negatives": 9270,
+      "true_positives": 3239,
+      "train_time_s": 5.7,
+      "eval_time_s": 0.187
+    },
+    {
+      "model": "extra_trees",
+      "accuracy": 0.7261,
+      "precision": 0.8941,
+      "recall": 0.1728,
+      "f1": 0.2896,
+      "auc_roc": 0.7081,
+      "pr_auc": 0.5997,
+      "fpr": 0.0098,
+      "true_negatives": 25955,
+      "false_positives": 256,
+      "false_negatives": 10348,
+      "true_positives": 2161,
+      "train_time_s": 3.2,
+      "eval_time_s": 0.148
+    },
+    {
+      "model": "gradient_boosting",
+      "accuracy": 0.7309,
+      "precision": 0.7492,
+      "recall": 0.2513,
+      "f1": 0.3763,
+      "auc_roc": 0.7125,
+      "pr_auc": 0.6059,
+      "fpr": 0.0401,
+      "true_negatives": 25159,
+      "false_positives": 1052,
+      "false_negatives": 9366,
+      "true_positives": 3143,
+      "train_time_s": 21.0,
+      "eval_time_s": 0.066
+    },
+    {
+      "model": "xgboost",
+      "accuracy": 0.7321,
+      "precision": 0.7212,
+      "recall": 0.2782,
+      "f1": 0.4015,
+      "auc_roc": 0.7123,
+      "pr_auc": 0.6073,
+      "fpr": 0.0513,
+      "true_negatives": 24866,
+      "false_positives": 1345,
+      "false_negatives": 9029,
+      "true_positives": 3480,
+      "train_time_s": 3.7,
+      "eval_time_s": 0.126
+    },
+    {
+      "model": "catboost",
+      "accuracy": 0.7343,
+      "precision": 0.749,
+      "recall": 0.2672,
+      "f1": 0.3938,
+      "auc_roc": 0.7162,
+      "pr_auc": 0.6118,
+      "fpr": 0.0427,
+      "true_negatives": 25091,
+      "false_positives": 1120,
+      "false_negatives": 9167,
+      "true_positives": 3342,
+      "train_time_s": 7.8,
+      "eval_time_s": 0.008
+    },
+    {
+      "model": "lightgbm",
+      "accuracy": 0.7317,
+      "precision": 0.727,
+      "recall": 0.2712,
+      "f1": 0.3951,
+      "auc_roc": 0.7125,
+      "pr_auc": 0.6071,
+      "fpr": 0.0486,
+      "true_negatives": 24937,
+      "false_positives": 1274,
+      "false_negatives": 9116,
+      "true_positives": 3393,
+      "train_time_s": 3.2,
+      "eval_time_s": 0.407
+    }
+  ],
+  "ensemble": {
+    "at_0.5": {
+      "accuracy": 0.7327,
+      "precision": 0.7673,
+      "recall": 0.2477,
+      "f1": 0.3745,
+      "auc_roc": 0.7164,
+      "pr_auc": 0.6118,
+      "fpr": 0.0359,
+      "true_negatives": 25271,
+      "false_positives": 940,
+      "false_negatives": 9410,
+      "true_positives": 3099
+    },
+    "at_0.6": {
+      "accuracy": 0.7301,
+      "precision": 0.9052,
+      "recall": 0.1839,
+      "f1": 0.3058,
+      "auc_roc": 0.7164,
+      "pr_auc": 0.6118,
+      "fpr": 0.0092,
+      "true_negatives": 25970,
+      "false_positives": 241,
+      "false_negatives": 10208,
+      "true_positives": 2301
+    }
+  },
+  "cv_5fold_grouped_on_train": {
+    "decision_tree": {
+      "f1_mean": 0.4055,
+      "f1_sd": 0.0041,
+      "auc_mean": 0.7041,
+      "auc_sd": 0.0017
+    },
+    "lightgbm": {
+      "f1_mean": 0.3997,
+      "f1_sd": 0.0063,
+      "auc_mean": 0.7116,
+      "auc_sd": 0.002
+    },
+    "xgboost": {
+      "f1_mean": 0.4013,
+      "f1_sd": 0.0073,
+      "auc_mean": 0.7117,
+      "auc_sd": 0.0017
+    }
+  },
+  "dataset_info": {
+    "raw_rows": 651191,
+    "clean_unique_rows": 193597,
+    "train_samples": 154877,
+    "test_samples": 38720,
+    "train_benign": 105004,
+    "train_malicious": 49873,
+    "test_benign": 26211,
+    "test_malicious": 12509,
+    "per_type": {
+      "benign": 131215,
+      "phishing": 52918,
+      "malware": 7343,
+      "defacement": 2121
+    }
+  }
+}

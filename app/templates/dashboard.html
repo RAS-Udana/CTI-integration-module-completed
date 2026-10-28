@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Overview{% endblock %}
+{% set active = "overview" %}
+{% block page_title %}Overview{% endblock %}
+
+{% block content %}
+<div class="grid grid--kpi" style="margin-bottom:20px;">
+  <div class="panel panel__body">
+    <div class="kpi__label">Total Requests</div>
+    <div class="kpi__value" id="kpi-total">—</div>
+    <div class="kpi__sub" id="kpi-total-24h">—</div>
+  </div>
+  <div class="panel panel__body">
+    <div class="kpi__label">Flagged (ENFORCE)</div>
+    <div class="kpi__value crit" id="kpi-flagged">—</div>
+    <div class="kpi__sub">threshold-crossing IOCs</div>
+  </div>
+  <div class="panel panel__body">
+    <div class="kpi__label">Inbound / Outbound</div>
+    <div class="kpi__value" id="kpi-io">—</div>
+    <div class="kpi__sub">split of all captured requests</div>
+  </div>
+  <div class="panel panel__body">
+    <div class="kpi__label">Scoring Queue</div>
+    <div class="kpi__value warn" id="kpi-pending">—</div>
+    <div class="kpi__sub" id="kpi-pending-sub">awaiting feed/ML result</div>
+  </div>
+</div>
+
+<div class="grid grid--2">
+  <div class="panel">
+    <div class="panel__head">
+      <span class="panel__title">Live Request Feed</span>
+      <a class="btn" href="{{ url_for('requests_view.requests_page') }}" style="text-decoration:none;">Open full view →</a>
+    </div>
+    <div class="panel__body" style="padding:0;">
+      <div style="max-height:420px; overflow-y:auto;">
+        <table>
+          <thead>
+            <tr><th>Time</th><th>Dir</th><th>Value</th><th>Type</th><th>Score</th><th>Decision</th></tr>
+          </thead>
+          <tbody id="live-feed-body">
+            <tr><td colspan="6" class="empty-state">Waiting for traffic…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel__head"><span class="panel__title">Top Flagged Values</span></div>
+    <div class="panel__body" style="padding:0;">
+      <table>
+        <thead><tr><th>Value</th><th>Hits</th><th>Score</th></tr></thead>
+        <tbody id="top-flagged-body">
+          <tr><td colspan="3" class="empty-state">No flagged IOCs yet</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="section-label">MITRE ATT&CK Severity Ladder</div>
+<div class="panel panel__body">
+  <div id="ladder" class="ladder"><div class="empty-state" style="width:100%;">Loading derived weights…</div></div>
+  <div id="ladder-legend" class="ladder-legend"></div>
+  <div class="kpi__sub" style="margin-top:12px;" id="ladder-meta">—</div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

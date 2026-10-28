@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}SOHO CTI{% endblock %} — SOHO CTI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body>
+  <div class="shell">
+    <nav class="nav">
+      <div class="nav__brand">
+        <div class="nav__brand-mark">SOHO / CTI - SLIIT</div>
+        <div class="nav__brand-name">Threat Console</div>
+      </div>
+      <div class="nav__links">
+        <a class="nav__link {{ 'active' if active == 'overview' }}" href="{{ url_for('dashboard.home') }}">Overview</a>
+        <a class="nav__link {{ 'active' if active == 'requests' }}" href="{{ url_for('requests_view.requests_page') }}">Live Requests</a>
+        <a class="nav__link {{ 'active' if active == 'mitre' }}" href="{{ url_for('mitre_view.mitre_page') }}">MITRE Weights</a>
+        <a class="nav__link {{ 'active' if active == 'anomaly' }}" href="{{ url_for('anomaly_view.anomaly_page') }}">Anomaly Detection</a>
+      </div>
+      <div class="nav__foot">
+        Severity = MITRE ATT&amp;CK derived<br>
+        Score = Severity x Corroboration x Freshness
+      </div>
+    </nav>
+
+    <header class="topbar">
+      <div class="topbar__title">{% block page_title %}Overview{% endblock %}</div>
+      <div class="topbar__status" id="topbar-status">
+        <span class="pill"><span class="pill__dot" id="status-capture-dot"></span><span id="status-capture-text">capture: —</span></span>
+        <span class="pill"><span class="pill__dot" id="status-ml-dot"></span><span id="status-ml-text">model: —</span></span>
+        <span class="pill"><span class="pill__dot live-dot ok"></span><span id="status-clock">—</span></span>
+      </div>
+    </header>
+
+    <main class="main">
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

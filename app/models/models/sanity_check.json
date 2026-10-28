@@ -1,0 +1,98 @@
+[
+  {
+    "input": "google.com",
+    "expected": "benign",
+    "probability": 0.3538,
+    "decision": "BENIGN",
+    "enforce_at_0.6": false,
+    "model_agreement": 1.0
+  },
+  {
+    "input": "www.wikipedia.org",
+    "expected": "benign",
+    "probability": 0.3102,
+    "decision": "BENIGN",
+    "enforce_at_0.6": false,
+    "model_agreement": 1.0
+  },
+  {
+    "input": "github.com",
+    "expected": "benign",
+    "probability": 0.3627,
+    "decision": "BENIGN",
+    "enforce_at_0.6": false,
+    "model_agreement": 1.0
+  },
+  {
+    "input": "sliit.lk",
+    "expected": "benign",
+    "probability": 0.4311,
+    "decision": "BENIGN",
+    "enforce_at_0.6": false,
+    "model_agreement": 1.0
+  },
+  {
+    "input": "youtube.com",
+    "expected": "benign",
+    "probability": 0.3639,
+    "decision": "BENIGN",
+    "enforce_at_0.6": false,
+    "model_agreement": 1.0
+  },
+  {
+    "input": "microsoft.com",
+    "expected": "benign",
+    "probability": 0.3028,
+    "decision": "BENIGN",
+    "enforce_at_0.6": false,
+    "model_agreement": 1.0
+  },
+  {
+    "input": "docs.python.org",
+    "expected": "benign",
+    "probability": 0.2473,
+    "decision": "BENIGN",
+    "enforce_at_0.6": false,
+    "model_agreement": 1.0
+  },
+  {
+    "input": "www.dailymirror.lk",
+    "expected": "benign",
+    "probability": 0.414,
+    "decision": "BENIGN",
+    "enforce_at_0.6": false,
+    "model_agreement": 1.0
+  },
+  {
+    "input": "paypal-login-verify.tk",
+    "expected": "malicious-looking",
+    "probability": 0.8277,
+    "decision": "MALICIOUS",
+    "enforce_at_0.6": true,
+    "model_agreement": 1.0
+  },
+  {
+    "input": "free-gift-cards.xyz/claim?id=1",
+    "expected": "malicious-looking",
+    "probability": 0.9331,
+    "decision": "MALICIOUS",
+    "enforce_at_0.6": true,
+    "model_agreement": 1.0
+  },
+  {
+    "input": "secure-appleid.com-verify.info/login.php",
+    "expected": "malicious-looking",
+    "probability": 0.4643,
+    "decision": "BENIGN",
+    "enforce_at_0.6": false,
+    "model_agreement": 0.86
+  },
+  {
+    "input": "185.215.113.66/bins/x86",
+    "expected": "malicious-looking",
+    "probability": 0.7121,
+    "decision": "MALICIOUS",
+    "enforce_at_0.6": true,
+    "model_agreement": 0.86
+  }
+]

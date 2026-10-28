@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}MITRE Weights{% endblock %}
+{% set active = "mitre" %}
+{% block page_title %}MITRE ATT&amp;CK Severity Weights{% endblock %}
+
+{% block content %}
+<div class="panel panel__body" style="margin-bottom:18px;">
+  <div class="section-label" style="margin-top:0;">Bundle Provenance</div>
+  <div id="bundle-meta" class="mono" style="font-size:12.5px; color:var(--text-dim); line-height:1.9;">
+    Loading…
+  </div>
+</div>
+
+<div class="section-label">Derived Severity Ladder</div>
+<div class="panel panel__body" style="margin-bottom:18px;">
+  <div id="ladder" class="ladder"><div class="empty-state" style="width:100%;">Loading derived weights…</div></div>
+  <div id="ladder-legend" class="ladder-legend"></div>
+</div>
+
+<div class="panel">
+  <div class="panel__head">
+    <span class="panel__title">Category → Technique Basis</span>
+    <span class="kpi__sub" style="margin:0;">weight = f(distinct ATT&amp;CK groups using these techniques)</span>
+  </div>
+  <div class="panel__body" style="padding:0;">
+    <table>
+      <thead>
+        <tr><th>Category</th><th>Severity</th><th>Raw Group Count</th><th>Backing Techniques</th></tr>
+      </thead>
+      <tbody id="mitre-body">
+        <tr><td colspan="4" class="empty-state">Loading…</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="panel panel__body" style="margin-top:18px;">
+  <div class="section-label" style="margin-top:0;">How this replaces hardcoded weights</div>
+  <p style="font-size:12.5px; color:var(--text-dim); line-height:1.7; max-width:820px;">
+    Every value above is a lookup from <code class="mono">config/severity_weights.json</code>,
+    generated once offline by <code class="mono">tools/derive_severity.py</code> against a pinned,
+    hash-verified MITRE ATT&amp;CK Enterprise bundle — never assigned by hand and never re-derived
+    at scoring time. The scorer (<code class="mono">app/cti/scorer.py</code>) multiplies this
+    severity by corroboration (how many feeds agree) and freshness (how recently the IOC was
+    seen) to get the final score. Full audit trail, including the one sanity-gate failure this
+    mapping hit and how it was fixed, is in <code class="mono">docs/severity_derivation.md</code>.
+  </p>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/mitre.js') }}"></script>
+{% endblock %}

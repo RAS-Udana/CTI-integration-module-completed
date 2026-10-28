@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Live Requests{% endblock %}
+{% set active = "requests" %}
+{% block page_title %}Live Requests{% endblock %}
+
+{% block content %}
+<div class="filter-bar panel panel__body">
+  <div class="search-box">
+    <input type="text" id="f-search" placeholder="search ip / domain…" style="width:220px;">
+  </div>
+  <select id="f-direction">
+    <option value="">All directions</option>
+    <option value="inbound">Inbound</option>
+    <option value="outbound">Outbound</option>
+  </select>
+  <select id="f-decision">
+    <option value="">All decisions</option>
+    <option value="ENFORCE">Enforce</option>
+    <option value="DISCARD">Discard</option>
+    <option value="PENDING">Pending</option>
+  </select>
+  <label style="display:flex; align-items:center; gap:6px; font-size:12.5px; color:var(--text-dim);">
+    <input type="checkbox" id="f-flagged-only"> Flagged only
+  </label>
+  <button class="btn btn--primary" id="f-apply">Apply</button>
+  <button class="btn" id="f-clear">Clear</button>
+  <span style="margin-left:auto; font-size:11.5px; color:var(--text-faint);" id="req-count"></span>
+</div>
+
+<div class="panel">
+  <div class="panel__body" style="padding:0;">
+    <table>
+      <thead>
+        <tr><th>Time</th><th>Dir</th><th>Value</th><th>Type</th><th>Src</th><th>Dst</th><th>Score</th><th>Decision</th></tr>
+      </thead>
+      <tbody id="req-body">
+        <tr><td colspan="8" class="empty-state">Loading…</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div style="display:flex; justify-content:center; gap:10px; margin-top:14px;">
+  <button class="btn" id="page-prev">← Prev</button>
+  <span class="mono" id="page-indicator" style="align-self:center; color:var(--text-dim); font-size:12px;">page 1</span>
+  <button class="btn" id="page-next">Next →</button>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/requests.js') }}"></script>
+{% endblock %}

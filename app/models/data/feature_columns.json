@@ -1,0 +1,19 @@
+[
+  "url_length",
+  "domain_length",
+  "url_entropy",
+  "domain_entropy",
+  "is_ip",
+  "dot_count",
+  "hyphen_count",
+  "underscore_count",
+  "digit_ratio",
+  "letter_ratio",
+  "special_char_ratio",
+  "no_protocol",
+  "subdomain_count",
+  "consecutive_dots",
+  "has_ip_pattern",
+  "tld_length",
+  "suspicious_tld"
+]
